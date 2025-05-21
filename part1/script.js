@@ -7,22 +7,13 @@ const optionsContainer = document.getElementById("options");
 const nextBtn = document.getElementById("nextBtn");
 const resultBox = document.getElementById("result");
 
-function getQuote() {
-  fetch("quotes.json")
-    .then(res => res.json())
-    .then(data => {
-      const randomIndex = Math.floor(Math.random() * data.length);
-      const quote = data[randomIndex];
-      quoteText.textContent = `"${quote.q}"`;
-      authorText.textContent = `— ${quote.a}`;
-    })
-    .catch(error => {
-      quoteText.textContent = "Failed to load quote.";
-      authorText.textContent = "";
-      console.error("Error fetching quote:", error);
-    });
-  }
-  
+fetch("questions.json")
+  .then(res => res.json())
+  .then(data => {
+    questions = data;
+    showQuestion();
+  });
+
 function showQuestion() {
   clearOptions();
   document.getElementById("question-count").textContent =
